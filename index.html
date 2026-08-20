@@ -507,6 +507,124 @@
                 padding: 6rem 5vw;
             }
         }
+
+        /* Modal Styles */
+            .modal-overlay {
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                background: rgba(3, 3, 5, 0.85);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: 9999;
+                display: none; /* Hidden by default */
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .modal-overlay.active {
+                display: flex;
+                opacity: 1;
+            }
+
+            .modal-content {
+                position: relative;
+                max-width: 900px;
+                width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                transform: translateY(30px);
+                transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            }
+
+            .modal-overlay.active .modal-content {
+                transform: translateY(0);
+            }
+
+            .close-modal {
+                position: absolute;
+                top: 1.5rem; right: 1.5rem;
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                font-size: 2rem;
+                cursor: pointer;
+                transition: color 0.3s;
+            }
+
+            .close-modal:hover {
+                color: var(--text-main);
+            }
+
+        /* Certificate Cards inside Modal */
+            .cert-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+
+            .cert-card {
+                text-decoration: none;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .cert-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent-cyan);
+                box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+            }
+
+            .cert-image {
+                width: 100%;
+                aspect-ratio: 16/10;
+                background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(124, 58, 237, 0.1));
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .cert-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                position: absolute;
+                top: 0; left: 0;
+                z-index: 1;
+            }
+
+            .cert-placeholder {
+                font-family: var(--font-display);
+                color: var(--accent-cyan);
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                z-index: 0;
+            }
+
+            .cert-info {
+                padding: 1.5rem;
+            }
+
+            .cert-info h4 {
+                color: var(--text-main);
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                line-height: 1.4;
+            }
+
+            .cert-info p {
+                color: var(--text-muted);
+                font-size: 0.9rem;
+            }
     </style>
 </head>
 <body>
@@ -633,10 +751,15 @@
                     <h3>Spectra</h3>
                     <p>An advanced application architecture solving complex digital challenges through intelligent data flow and modern framework integration.</p>
                     <div class="tag-container" style="margin-bottom: 2rem;">
-                        <span class="tag">Full Stack</span>
-                        <span class="tag">System Design</span>
+                        <span class="tag">Accessibility</span>
+                        <span class="tag">YOLO</span>
+                        <span class="tag">EasyOCR</span>
+                        <span class="tag">Chrome Extension</span>
                     </div>
-                    <a href="https://github.com/Shadow-Gard3n/Spectra" target="_blank" class="btn btn-secondary">View on GitHub →</a>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="https://github.com/Shadow-Gard3n/Spectra" target="_blank" class="btn btn-secondary">View on GitHub →</a>
+                        <a href="https://pypi.org/project/graphvision-ai/" target="_blank" class="btn btn-primary">View on PyPI →</a>
+                    </div>
                 </div>
             </div>
 
@@ -647,11 +770,15 @@
                     <h3>AgroVision</h3>
                     <p>Integrating agricultural technology with machine learning models to provide smart, data-driven insights for modern farming and crop management.</p>
                     <div class="tag-container" style="margin-bottom: 2rem;">
-                        <span class="tag">AI/ML</span>
-                        <span class="tag">Computer Vision</span>
-                        <span class="tag">Frontend UI</span>
+                        <span class="tag">React.js/FastAPI</span>
+                        <span class="tag">Vercel/Hugging Face Spaces</span>
+                        <span class="tag">YOLO</span>
+                        <span class="tag">Scikit-learn</span>
                     </div>
-                    <a href="https://github.com/Shadow-Gard3n/AgroVision-Frontend" target="_blank" class="btn btn-secondary">View on GitHub →</a>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="https://github.com/Shadow-Gard3n/AgroVision-Frontend" target="_blank" class="btn btn-secondary">View Frontend (GitHub) →</a>
+                        <a href="https://huggingface.co/spaces/ShadowGard3n/AgroVision-Backend/tree/main" target="_blank" class="btn btn-secondary">View Backend (Hugging Face) →</a>
+                    </div>
                 </div>
             </div>
 
@@ -664,8 +791,10 @@
                     <h3>MedScope</h3>
                     <p>A healthcare-focused technological solution aimed at streamlining medical data processing and providing predictive insights securely.</p>
                     <div class="tag-container" style="margin-bottom: 2rem;">
-                        <span class="tag">Backend</span>
-                        <span class="tag">Data Processing</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">Pandas</span>
                     </div>
                     <a href="https://github.com/Shadow-Gard3n/MedScope" target="_blank" class="btn btn-secondary">View on GitHub →</a>
                 </div>
@@ -680,9 +809,9 @@
                     <h3>NoteDrop</h3>
                     <p>A seamless, highly interactive platform designed to modernize how information is captured, organized, and retrieved in real-time environments.</p>
                     <div class="tag-container" style="margin-bottom: 2rem;">
-                        <span class="tag">React</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">Database</span>
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Supabase</span>
+                        <span class="tag">MongoDB</span>
                     </div>
                     <a href="https://github.com/Shadow-Gard3n/NoteDrop" target="_blank" class="btn btn-secondary">View on GitHub →</a>
                 </div>
@@ -697,9 +826,9 @@
                     <h3>AI-Based 2D Story</h3>
                     <p>An experimental creative engine leveraging artificial intelligence to dynamically generate narrative structures and 2D visual elements.</p>
                     <div class="tag-container" style="margin-bottom: 2rem;">
-                        <span class="tag">Generative AI</span>
-                        <span class="tag">Hugging Face</span>
-                        <span class="tag">Python</span>
+                        <span class="tag">Multi-Agent AI</span>
+                        <span class="tag">LLMs (Gemini & Ollama)</span>
+                        <span class="tag">FastAPI</span>
                     </div>
                     <a href="https://github.com/Shadow-Gard3n/AI-Based-2D-Story" target="_blank" class="btn btn-secondary">View on GitHub →</a>
                 </div>
@@ -762,13 +891,21 @@
     </section>
 
     <!-- Resume & Certifications Placeholder -->
+
     <section id="resume" style="min-height: auto; padding-bottom: 4rem;">
         <div class="glass-card reveal" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
             <h2 class="font-display">Want the complete story?</h2>
-            <p style="color: var(--text-muted);">Explore my detailed experience, education, and upcoming certifications.</p>
-            <div class="cta-group" style="justify-content: center; margin-top: 1rem;">
-                <button class="btn btn-primary" onclick="alert('Resume PDF functionality to be configured.')">View Resume →</button>
-                <button class="btn btn-secondary" onclick="alert('Credentials vault locked. Add certs later.')">View Certifications</button>
+            <p style="color: var(--text-muted);">Explore my detailed experience, education, and certifications.</p>
+            <div class="cta-group" style="justify-content: center; margin-top: 1rem; flex-wrap: wrap; gap: 1rem;">
+                <!-- Resume Link -->
+                <a href="./Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    View Resume →
+                </a>
+                
+                <!-- Single Trigger Button for Certifications Modal -->
+                <button onclick="openCertModal()" class="btn btn-secondary">
+                    View Certifications
+                </button>
             </div>
         </div>
     </section>
@@ -788,6 +925,42 @@
             </div>
         </div>
     </section>
+
+    <!-- Certifications Modal -->
+    <div id="cert-modal" class="modal-overlay">
+        <div class="glass-card modal-content">
+            <button class="close-modal" onclick="closeCertModal()">×</button>
+            <h3 class="font-display" style="margin-bottom: 2rem; font-size: 2rem;">My Certifications</h3>
+            
+            <div class="cert-grid">
+                <!-- Oracle Certificate -->
+                <a href="./Certificate_Oracle.pdf" target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <div class="cert-image">
+                        <!-- Replace 'oracle-preview.jpg' with a real image path if you have one, or leave it to use the CSS fallback -->
+                        <img src="oracle_preview.png" alt="Oracle Certificate Preview" onerror="this.style.display='none'">
+                        <div class="cert-placeholder">View PDF</div>
+                    </div>
+                    <div class="cert-info">
+                        <h4>Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</h4>
+                        <p>Oracle University</p>
+                    </div>
+                </a>
+
+                <!-- Software Engineering Certificate -->
+                <a href="./Certificate_SE.pdf" target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <div class="cert-image">
+                        <!-- Replace 'se-preview.jpg' with a real image path if you have one, or leave it to use the CSS fallback -->
+                        <img src="se-preview.png" alt="SE Certificate Preview" onerror="this.style.display='none'">
+                        <div class="cert-placeholder">View PDF</div>
+                    </div>
+                    <div class="cert-info">
+                        <h4>NPTEL Online Certification: Software Engineering</h4>
+                        <p>IIT Kharagpur (Elite, Top 5%)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Smooth Scroll for Navigation
@@ -901,6 +1074,33 @@
         initCanvas();
         createParticles();
         animateParticles();
+
+
+        // Modal Functionality
+        function openCertModal() {
+            const modal = document.getElementById('cert-modal');
+            modal.style.display = 'flex';
+            // Small delay to allow display block to apply before opacity transition
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('cert-modal');
+            modal.classList.remove('active');
+            // Wait for opacity transition to finish before hiding the element
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 400); 
+        }
+
+        // Close modal if user clicks outside of the glass card
+        document.getElementById('cert-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCertModal();
+            }
+        });
     </script>
 </body>
 </html>
